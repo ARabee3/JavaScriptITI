@@ -1,0 +1,54 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact</title>
+    <style>
+      tr :first-child {
+        font-weight: bold;
+      }
+
+      tr :last-child {
+        width: 100%;
+      }
+
+      td {
+        border: 1px solid black;
+        padding: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <table style="border: 1px solid black; border-collapse: collapse">
+      <tr>
+        <td>Name</td>
+        <td id="name"></td>
+      </tr>
+      <tr>
+        <td>BirthYear</td>
+        <td id="birth"></td>
+      </tr>
+      <tr>
+        <td>Age</td>
+        <td id="age"></td>
+      </tr>
+    </table>
+  </body>
+  <script>
+    while (!isNaN(name)) {
+      var name = prompt("Enter Your Name: ");
+    }
+    while (isNaN(birthYear) || birthYear >= 2010) {
+      var birthYear = prompt("Enter Your birthyear: ");
+    }
+    var age = 2025 - birthYear;
+    document.write("<u><strong>Name: </strong></u>" + name + "<br><br>");
+    document.write(
+      "<u><strong>Birth Year: </strong></u>" + birthYear + "<br><br>"
+    );
+    document.write("<u><strong>Age: </strong></u>" + age + "<br><br>");
+    document.getElementById("name").innerHTML = name;
+    document.getElementById("birth").innerHTML = birthYear;
+    document.getElementById("age").innerHTML = age;
+  </script>
+</html>

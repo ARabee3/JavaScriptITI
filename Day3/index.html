@@ -1,0 +1,35 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab Three</title>
+  </head>
+  <body>
+    <input
+      type="text"
+      onclick="buttonClicked(event)"
+      onkeypress="keyPressed(event)"
+    />
+    <br />
+    <button id="startClock">Start Clock</button>
+    <div id="clock"></div>
+    <br /><br />
+    <form action="login.html" method="get" target="_blank">
+      <label for="username">Username:</label>
+      <input
+        type="text"
+        name="username"
+        placeholder="Enter Your Username Here"
+      />
+      <br />
+      <label for="pass">Password:</label>
+      <input type="password" name="pass" />
+      <br />
+      <input type="submit" value="Login" />
+    </form>
+    <br />
+    <a href="ad.html" onclick="handleAdClick(event)">Open Ad</a>
+    <a href="#" onclick="closeAd()">Close the Ad Window</a>
+  </body>
+  <script src="labThree.js"></script>
+</html>

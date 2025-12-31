@@ -1,0 +1,17 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+  </head>
+  <body>
+    <h1 id="greeting"></h1>
+    <script>
+      var urlParams = new URLSearchParams(window.location.search);
+      var userName = urlParams.get("username");
+      console.log(userName);
+      var element = document.getElementById("greeting");
+      element.textContent = "Welcome, " + userName;
+    </script>
+  </body>
+</html>
