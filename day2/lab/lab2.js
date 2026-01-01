@@ -127,3 +127,8 @@ function processDate() {
     alert("Wrong Date Format");
   }
 }
+
+//Bonus
+function getLiteralDay(date){
+  
+}

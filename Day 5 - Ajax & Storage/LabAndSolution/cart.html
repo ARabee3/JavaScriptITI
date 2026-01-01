@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Shopping Cart</title>
+    <style>
+      .cart-item {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #ccc;
+        padding: 10px;
+      }
+      .cart-item img {
+        width: 50px;
+        margin-right: 20px;
+      }
+      .cart-item-info {
+        flex-grow: 1;
+      }
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      #total-price {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: green;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Your Shopping Cart</h1>
+    <div id="cart-container"></div>
+    <div id="total-price">Total: $0.00</div>
+    <br />
+    <a href="shopping.html">Back to Products</a>
+
+    <script>
+      var cartIds = JSON.parse(localStorage.getItem("myCart")) || [];
+      var cartContainer = document.getElementById("cart-container");
+      var totalDisplay = document.getElementById("total-price");
+      var allProducts = [];
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("get", "https://fakestoreapi.com/products");
+      xhr.onload = function () {
+        if (xhr.status == 200) {
+          allProducts = JSON.parse(xhr.responseText);
+          renderCart();
+        }
+      };
+      xhr.send();
+
+      function renderCart() {
+        cartContainer.innerHTML = "";
+        var total = 0;
+
+        cartIds.forEach(function (id, index) {
+          var product = allProducts.find((p) => p.id == id);
+          if (product) {
+            total += product.price;
+            cartContainer.innerHTML += `
+                        <div class="cart-item">
+                            <img src="${product.image}">
+                            <div class="cart-item-info">
+                                <h4>${product.title}</h4>
+                                <p>$${product.price}</p>
+                            </div>
+                            <div class="controls">
+                                <button onclick="removeItem(${index})">Delete</button>
+                            </div>
+                        </div>
+                    `;
+          }
+        });
+        totalDisplay.innerText = "Total: $" + total.toFixed(2);
+      }
+
+      function removeItem(index) {
+        cartIds.splice(index, 1);
+        localStorage.setItem("myCart", JSON.stringify(cartIds));
+        renderCart();
+      }
+    </script>
+  </body>
+</html>

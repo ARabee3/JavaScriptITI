@@ -1,0 +1,84 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registeration Form</title>
+  </head>
+  <body>
+    <form action="./WelcomePage.html" method="get">
+      <label for="fullName">Full Name</label>
+      <input
+        type="text"
+        name="fullName"
+        required
+        placeholder="Enter your Name:"
+      />
+      <label for="fullName" id="labelError"></label>
+
+      <label for="email">Email</label>
+      <input type="email" name="email" required />
+
+      <label for="city">City</label>
+      <select name="city">
+        <option value="minya">Minya</option>
+        <option value="cairo">Cairo</option>
+        <option value="alex">Alexandria</option>
+        <option value="bns">Beni Suef</option>
+      </select>
+
+      <label for="pass">Password</label>
+      <input type="password" name="pass" required />
+
+      <label for="repeatPassword">Repeat Password</label>
+      <input type="password" name="repeatPassword" required />
+      <label for="repeatPassword" id="passError"></label>
+
+      <label for="terms">I Accept Terms & Conditions</label>
+      <input type="checkbox" name="terms" required />
+
+      <button type="submit">Register</button>
+    </form>
+    <script>
+      var fullName = document.querySelector('[name="fullName"]');
+      var fullNameError = document.getElementById("labelError");
+      fullNameError.style.color = "red";
+
+      fullName.onfocus = function () {
+        this.style.border = "solid 1px blue";
+        this.style.outline = "none";
+      };
+
+      fullName.onblur = function () {
+        this.style.border = "";
+        if (this.value == "" || this.value.length <= 3) {
+          fullNameError.textContent = "Error!";
+          this.focus();
+          this.select();
+        } else {
+          fullNameError.textContent = "";
+        }
+      };
+
+      var password = document.querySelector('[name="pass"]');
+      var repeatPassword = document.querySelector('[name="repeatPassword"]');
+      var passError = document.getElementById("passError");
+      passError.style.color = "red";
+
+      repeatPassword.onblur = function () {
+        if (password.value == "" || repeatPassword.value == "") {
+          passError.textContent = "Error, Password is required";
+          this.style.backgroundColor = "gray";
+          password.style.backgroundColor = "gray";
+        } else if (password.value != repeatPassword.value) {
+          passError.textContent = "Error, Passwords Doesn't Match";
+          this.style.backgroundColor = "gray";
+          password.style.backgroundColor = "gray";
+        } else {
+          passError.textContent = "";
+          this.style.backgroundColor = "white";
+          password.style.backgroundColor = "white";
+        }
+      };
+    </script>
+  </body>
+</html>

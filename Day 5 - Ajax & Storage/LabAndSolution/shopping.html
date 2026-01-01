@@ -1,0 +1,99 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping List</title>
+    <style>
+      #product_list {
+        background-color: rgb(237, 235, 235);
+        margin: 16px;
+        padding: 10px;
+        width: 95%;
+        border-radius: 4px;
+      }
+      .product_item {
+        display: inline-block;
+        width: 250px;
+        margin: 8px;
+        padding: 4px;
+        background-color: white;
+        border: 1px solid #ccc;
+        text-align: center;
+        border-radius: 4px;
+      }
+      .product_item img {
+        margin: 0 auto;
+        width: 100px;
+        height: 100px;
+        border-radius: 4px;
+      }
+      .item_text {
+        margin: 4px;
+        display: block;
+        font-size: smaller;
+        height: 40px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .item_price {
+        margin: 4px;
+        display: inline-block;
+        text-align: right;
+        font-style: italic;
+        color: green;
+      }
+      .addToCart {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <nav style="padding: 20px; background: white; margin-bottom: 10px">
+      <a
+        href="cart.html"
+        style="text-decoration: none; font-weight: bold; color: blue"
+      >
+        🛒 View Shopping Cart
+      </a>
+    </nav>
+    <div id="product_list"></div>
+  </body>
+  <script>
+    var xhr = new XMLHttpRequest();
+    var container = document.getElementById("product_list");
+    xhr.open("get", "https://fakestoreapi.com/products");
+    xhr.onload = function () {
+      if (xhr.status == 200) {
+        var products = JSON.parse(xhr.responseText);
+        container.innerHTML = "";
+        products.forEach(function (product) {
+          var cardHTML = `
+        <div class="product_item">
+          <img src="${product.image}" alt="${product.title}" />
+          <p class="item_text">${product.title}</p>
+          <p class="item_price">$${product.price}</p>
+          <button class="addToCart" data-id="${product.id}">ADD TO CART</button>
+        </div>
+      `;
+          container.innerHTML += cardHTML;
+        });
+        container.addEventListener("click", function (event) {
+          if (event.target.classList.contains("addToCart")) {
+            var productId = event.target.getAttribute("data-id");
+            addToCart(productId);
+          }
+        });
+      }
+      function addToCart(id) {
+        var existingData = localStorage.getItem("myCart");
+
+        var cart = JSON.parse(existingData) || [];
+        cart.push(id);
+        localStorage.setItem("myCart", JSON.stringify(cart));
+
+        alert("Product  added to cart successfully!");
+      }
+    };
+    xhr.send();
+  </script>
+</html>
