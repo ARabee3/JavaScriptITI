@@ -1,0 +1,87 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Queue</title>
+  </head>
+  <body>
+    <script>
+      //Q1
+      var student = {
+        name: "Ahmed",
+        University: "Nahda",
+        faculty: "Computer Science",
+        finalGrade: 3.81,
+      };
+      console.log(
+        `${student.name} is a student in faculty of ${student.faculty} in university ${student.University} And his final grad is ${student.finalGrade}.`
+      );
+
+      //Q2
+      function Queue() {
+        var array = [];
+        var toq = -1;
+        this.maxSize = 100;
+
+        this.getCurrentSize = function () {
+          //return array.length;
+          return toq + 1;
+        };
+
+        function getQueueElements() {
+          return array;
+        }
+
+        this.viewQueue = function () {
+          getQueueElements();
+        };
+
+        this.enqueue = function (item) {
+          if (toq >= this.maxSize) {
+            console.log("Queue Is Full!");
+          } else {
+            array.push(item);
+            toq++;
+          }
+        };
+
+        this.dequeue = function () {
+          if (array.length == 0) {
+            console.log("Can't Dequeue of empty queue");
+          } else {
+            array.shift();
+            toq--;
+          }
+        };
+
+        this.returnQueue = function () {
+          return getQueueElements;
+        };
+      }
+      Queue.prototype.isEmpty = function () {
+        if (this.getCurrentSize() == 0) {
+          return true;
+        }
+        return false;
+      };
+      var q = new Queue();
+      console.log(q.isEmpty());
+      q.enqueue(1);
+      q.enqueue(2);
+      q.enqueue(3);
+      q.enqueue(4);
+      q.dequeue();
+      q.dequeue();
+      q.enqueue(5);
+      console.log(q.isEmpty());
+
+      q.viewQueue();
+      console.log(q.returnQueue());
+      var x = q.returnQueue();
+      console.log(x);
+
+      //Yes
+      // a function that "remembers" and can access variables from its outer (enclosing) scope, even after that outer function has finished executing.
+    </script>
+  </body>
+</html>

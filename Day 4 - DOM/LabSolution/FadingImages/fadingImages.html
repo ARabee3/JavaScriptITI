@@ -1,0 +1,32 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fading Images</title>
+    <style>
+      img {
+        transition: opacity 0.5s ease-in-out;
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <img src="images/1.jpg" width="150" />
+      <img src="images/2.jpg" width="150" />
+      <img src="images/3.jpg" width="150" />
+      <img src="images/4.jpg" width="150" />
+    </div>
+    <script>
+      var images = document.getElementsByTagName("img");
+      for (let image of images) {
+        image.addEventListener("mouseover", function () {
+          image.style.opacity = "0.3";
+        });
+        image.addEventListener("mouseout", function () {
+          image.style.opacity = "1.0";
+        });
+      }
+    </script>
+  </body>
+</html>

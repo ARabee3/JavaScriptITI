@@ -5,7 +5,7 @@
     <title>Registeration Form</title>
   </head>
   <body>
-    <form action="./WelcomePage.html" method="get">
+    <form action="./WelcomePage.html" id="registeration" method="get">
       <label for="fullName">Full Name</label>
       <input
         type="text"
@@ -41,6 +41,7 @@
     <script>
       var fullName = document.querySelector('[name="fullName"]');
       var fullNameError = document.getElementById("labelError");
+
       fullNameError.style.color = "red";
 
       fullName.onfocus = function () {
@@ -51,32 +52,56 @@
       fullName.onblur = function () {
         this.style.border = "";
         if (this.value == "" || this.value.length <= 3) {
-          fullNameError.textContent = "Error!";
+          //fullNameError.textContent = "Error!";
+          fullNameError.innerHTML =
+            '<img src="notvalid.png" width="20" title="Invalid Name">';
           this.focus();
           this.select();
         } else {
-          fullNameError.textContent = "";
+          //fullNameError.textContent = "";
+          fullNameError.innerHTML =
+            '<img src="valid.png" width="20" title="Invalid Name">';
         }
       };
 
       var password = document.querySelector('[name="pass"]');
       var repeatPassword = document.querySelector('[name="repeatPassword"]');
       var passError = document.getElementById("passError");
+      var form = document.getElementById("registeration");
       passError.style.color = "red";
 
       repeatPassword.onblur = function () {
         if (password.value == "" || repeatPassword.value == "") {
-          passError.textContent = "Error, Password is required";
+          //passError.textContent = "Error you can't leave the password field!";
+          passError.innerHTML =
+            '<img src="notvalid.png" width="20" title="Invalid Name">';
           this.style.backgroundColor = "gray";
           password.style.backgroundColor = "gray";
         } else if (password.value != repeatPassword.value) {
-          passError.textContent = "Error, Passwords Doesn't Match";
+          passError.innerHTML =
+            '<img src="notvalid.png" width="20" title="Invalid Name">';
           this.style.backgroundColor = "gray";
           password.style.backgroundColor = "gray";
         } else {
-          passError.textContent = "";
+          //passError.textContent = "";
+          passError.innerHTML =
+            '<img src="valid.png" width="20" title="Invalid Name">';
           this.style.backgroundColor = "white";
           password.style.backgroundColor = "white";
+        }
+      };
+
+      //Q2
+      form.onsubmit = function (event) {
+        if (
+          fullName.value == "" ||
+          fullName.value.length <= 3 ||
+          password.value != repeatPassword.value
+        ) {
+          event.preventDefault();
+          alert("Correct the validation errors first");
+        } else {
+          form.submit();
         }
       };
     </script>
