@@ -1,0 +1,153 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ES6 Lab2</title>
+  </head>
+  <body>
+    <button onclick="displayAllTips()">Display all tips</button>
+    <button onclick="setInterval(displayTimedTips(),3000)">
+      Display timed tips
+    </button>
+    <p id="tip"></p>
+    <script>
+      //Q1
+      // (function (num1, num2) {
+      //   alert(num1 + num2);
+      // })(1, 2);
+
+      //Q2
+      arr = [3, 1, 5, 4, 2];
+
+      //filter
+      oddArr = arr.filter((a) => a % 2 != 0);
+      console.log(oddArr);
+
+      //foreach
+      arr.forEach((e) => {
+        if (e % 2 == 0) {
+          console.log(e);
+        }
+      });
+
+      //map
+      squareArr = arr.map((e) => e * e);
+      console.log(squareArr);
+
+      // arrow doesnt open its new context, it just captures the one outer of it, so in setInterval() and a function inside
+      // if we paste this it is gonna print the window
+
+      //Q3
+      arr2 = [1, 2, 3, 4, 5];
+      arr3 = [6, 7, 8, 9, 10];
+      console.log(...arr2); //logs values not the array object itself
+
+      console.log();
+      let [a, b, ...rest] = arr2;
+      console.log(a);
+      console.log(b);
+      console.log(rest);
+
+      let numbersCombined = [...arr2, ...arr3];
+      console.log(numbersCombined);
+
+      //Q4
+      var student = {
+        name: "Ahmed",
+        University: "Nahda",
+        faculty: "Computer Science",
+        finalGrade: 3.81,
+      };
+      console.log(
+        `${student.name} is a student in faculty of ${student.faculty} in university ${student.University} And his final grad is ${student.finalGrade}.`
+      );
+
+      //Q5
+      let set = new Set(["Ahmed", "Mosaad", "Yehia", "Nouran"]);
+      console.log(set);
+      set.add("Ahmed");
+      for (item of set) {
+        console.log(item);
+      }
+      console.log(...set);
+
+      //Q6
+      const es6Tips = [
+        "Use 'let' and 'const' for block-scoping instead of 'var'.",
+        "Arrow functions () => {} provide shorter syntax and lexical 'this'.",
+        "Template literals using backticks `` allow for easy string interpolation.",
+        "Destructuring makes extracting data from arrays and objects a breeze.",
+        "Default parameters let you set fallback values for function arguments.",
+        "The Spread operator (...) is perfect for copying or merging arrays/objects.",
+        "Rest parameters (...) allow functions to handle indefinite arguments as an array.",
+        "Classes provide a cleaner, more intuitive syntax for OOP in JavaScript.",
+        "Modules (import/export) help organize code into reusable files.",
+        "Enhanced object literals allow for shorthand property and method naming.",
+      ];
+      let tipsCount = es6Tips.length;
+      function* tipsGenerator(count) {
+        for (let i = 0; i < count; i++) {
+          yield es6Tips[i];
+        }
+      }
+      let generateTip = tipsGenerator(tipsCount);
+      //console.log(generateTip.next().value);
+
+      function displayAllTips() {
+        generateTip = tipsGenerator(tipsCount);
+        for (let tip of generateTip) {
+          document.write(`${tip} <br>`);
+        }
+      }
+
+      let tipTemplate = document.getElementById("tip");
+
+      function displayTimedTips() {
+        clearInterval(interval);
+        generateTip = tipsGenerator(tipsCount);
+
+        var interval = setInterval(() => {
+          let result = generateTip.next();
+
+          if (!result.done) {
+            tipTemplate.textContent = result.value;
+          } else {
+            tipTemplate.textContent = "No more tips!";
+            clearInterval(interval);
+          }
+        }, 3000);
+      }
+      //Q7
+      //Optional chaining makes it easier to access deeply nested properties in an object
+      //without having to explicitly check for null or undefined values.
+      //This feature prevents your code from throwing errors when trying to access properties of undefined or null objects.
+
+      const user = {
+        name: "Jane",
+        address: {
+          city: "New York",
+        },
+      };
+
+      console.log(user.address?.city); // "New York"
+      console.log(user.contact?.phone); // undefined, but no error
+
+      //Logical Assignment Operators
+      let title; //undefined
+      title ||= "untitled"; // undefined is falsy
+
+      console.log(title); // title => untitled
+
+      title = "ESNext";
+      title ||= "ES";
+      console.log(title); // title => ESNext
+
+      //&&= , ??=
+
+      //JavaScript Numeric Separator
+
+      //const budget = 1000000000; => //not readable
+      const budget = 1_000_000_000; //Better Readability
+    </script>
+  </body>
+</html>
