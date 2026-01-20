@@ -1,0 +1,77 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab Three ES6</title>
+  </head>
+  <body>
+    <select id="users"></select>
+    <button type="button" id="showImage" disabled>Show Image</button>
+    <br />
+    <img id="profile-pic" />
+
+    <script>
+      // //Q1
+      const usersDropList = document.getElementById("users");
+      const showImageBtn = document.getElementById("showImage");
+      let pic = document.getElementById("profile-pic");
+      // fetch("https://dummyjson.com/users")
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     data.users.forEach((item) => {
+      //       let email = item.email;
+      //       let option = document.createElement("option");
+
+      //       option.value = item.id;
+      //       option.textContent = item.email;
+
+      //       usersDropList.appendChild(option);
+      //     });
+      //     showImageBtn.disabled = !showImageBtn.disabled;
+      //     showImageBtn.onclick = () => {
+      //       let id = usersDropList.value;
+      //       let img = data.users.find((user) => user.id == id).image;
+      //       pic.src = img;
+      //     };
+      //   });
+      //Q2
+      async function loadUsers() {
+        const response = await fetch("https://dummyjson.com/users");
+        const data = await response.json();
+
+        data.users.forEach((item) => {
+          let option = document.createElement("option");
+          option.value = item.id;
+          option.textContent = item.email;
+          usersDropList.appendChild(option);
+        });
+
+        showImageBtn.disabled = false;
+
+        showImageBtn.onclick = () => {
+          const selectedId = usersDropList.value;
+          const user = data.users.find((u) => u.id == selectedId);
+
+          if (user) {
+            pic.src = user.image;
+          }
+        };
+      }
+      loadUsers();
+      //Q3
+      fetch("https://dummyjson.com/posts/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: "Hello From Day8 ES6",
+          body: "This is the last ES6 Day",
+          userId: 5,
+        }),
+      })
+        .then((res) => res.json())
+        .then(console.log);
+
+      //Q4
+    </script>
+  </body>
+</html>

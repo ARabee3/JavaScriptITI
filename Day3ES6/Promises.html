@@ -1,0 +1,38 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promises</title>
+  </head>
+  <body>
+    <p id="status-text"></p>
+    <img
+      id="user-image"
+      src=""
+      alt="User Profile"
+      style="display: none; width: 150px; border-radius: 50%"
+    />
+    <script>
+      let promise = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+      const message = document.getElementById("status-text");
+      const userImg = document.getElementById("user-image");
+      promise(3000)
+        .then(() => {
+          message.textContent = "Welcome!";
+          userImg.src = "https://dummyjson.com/icon/michaelw/128";
+          userImg.style.display = "block";
+          return promise(3000);
+        })
+        .then(() => {
+          message.textContent = "Thank you for visiting!";
+          return promise(2000);
+        })
+        .then(() => {
+          window.location.href = "https://www.google.com";
+        })
+        .catch((error) => {
+          console.error("Sequence failed:", error);
+        });
+    </script>
+  </body>
+</html>
